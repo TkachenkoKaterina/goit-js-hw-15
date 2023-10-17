@@ -5,45 +5,32 @@ const refs = {
   boxes: document.querySelector("#boxes"),
 };
 
-// refs.input.addEventListener("input", handleInput);
-refs.btnCreat.addEventListener("click", handleCreat);
+refs.btnCreat.addEventListener("click", createBoxes);
+refs.btnDestroy.addEventListener("click", destroyBoxes);
 
-// function handleInput(e) {
-//   if (e.currentTarget.value >= 1 && e.currentTarget.value <= 100) {
-//     amount = Number(e.currentTarget.value);
-//     return amount;
-//   } else {
-//     return console.log("Oooops");
-//   }
-// }
+let amount = 0;
 
-function handleCreat(e) {
-  // console.log(e.currentTarget);
-  let amount = 0;
-  let arr = [];
-
+function createBoxes(e) {
   amount = Number(refs.input.value);
   if (amount >= 1 && amount <= 100) {
+    let paramBox = 30;
     for (let i = 1; i <= amount; i += 1) {
-      const boxRef = document.createElement("li");
-      arr.push(boxRef);
+      const box = document.createElement("div");
+      box.style.width = `${paramBox}px`;
+      box.style.height = `${paramBox}px`;
+      box.style.backgroundColor = getRandomHexColor();
+      paramBox += 10;
 
-      // refs.boxes.insertAdjacentElement("beforeend", boxRef);
+      refs.boxes.insertAdjacentElement("beforeend", box);
     }
-    creatMarkup(arr);
   } else {
     return console.log("Ooooops");
   }
-
-  console.log(amount);
 }
 
-function creatMarkup(arrItem) {
-  console.log(arrItem);
-  const markup = arrItem.map((item) => {
-    console.log(item);
-  });
-  // console.log(markup);
+function destroyBoxes(e) {
+  refs.boxes.innerHTML = "";
+  refs.input.value = "";
 }
 
 function getRandomHexColor() {
